@@ -3,8 +3,8 @@ from tkinter import *
 import ttkbootstrap
 
 root = tk.Tk()
+
 themes = ["darkly",  "cyborg", "solar", "cosmo", "minty", "morph"]
-root.geometry("300x500")
 root.title("Zene Kezelő")
 ttkbootstrap.Style("darkly")
 
@@ -16,45 +16,20 @@ def setTheme(index):
 for i in range(len(themes)):
     file.add_command(label =themes[i], command =lambda index = i: setTheme(index))
 
+class app:
+    def __init__(self, root):
+        self.root = root
+        self.root.geometry("300x500")
+        self.main()
 
-def reset():
-    for child in root.winfo_children():
-        child.destroy()
+    def main(self):
+        for i in self.root.winfo_children():
+            i.destroy()
+        theme()
+        self.frame1 = Frame(self.root, width=300, height=500)
+        root.config(menu = menubar)
 
-def null(index):
-    print(f"{index}")
-
-nevLabel = Label(
-    root,
-    text="Zene Kezelő",
-    anchor="center",
-    font=("Aerial", 13, "bold"),
-)
-nevLabel.pack(pady=10)
-
-gombtext = ["Hozzáad", "Kiír", "Sorrend", "Letöröl"]
-menuGombok = []
-for i in range(4):
-    button = tk.Button(
-        root,
-        anchor="center",
-        command=lambda index=gombtext[i]: null(index),
-        width=20,
-        font=("Aerial", 10, "bold"),
-        text=gombtext[i],
-    )
-    menuGombok.append(button)
-    button.pack(pady=10)
-
-backGomb = tk.Button(
-    root,
-    anchor="center",
-    font=("Aerial", 10, "bold"),
-    command=lambda index="Vissza": null(index),
-    width=20,
-    text="Vissza",
-)
-backGomb.pack(pady=100)
 
 root.config(menu = menubar)
+app(root)
 root.mainloop()
