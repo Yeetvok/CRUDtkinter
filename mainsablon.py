@@ -1,34 +1,37 @@
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
+from tkinter.messagebox import showinfo
+
+# create the root window
+root = tk.Tk()
+root.title('Listbox')
 
 
-class app:
-    def __init__(self, master):
-        self.master = master
-        self.master.geometry("200x200")
-        self.login()
+# create a list box
+langs = ('Java', 'C#', 'C', 'C++', 'Python',
+         'Go', 'JavaScript', 'PHP', 'Swift')
 
-    def login(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame1 = Frame(self.master, width=300, height=300)
-        self.frame1.pack()
-        self.reg_txt = ttk.Label(self.frame1, text='login')
-        self.reg_txt.pack()
-        self.register_btn = ttk.Button(self.frame1, text="Go to Register", command=self.register)
-        self.register_btn.pack()
+var = tk.Variable(value=langs)
 
-    def register(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame2 = Frame(self.master, width=300, height=300)
-        self.frame2.pack()
-        self.reg_txt2 = ttk.Label(self.frame2, text='register')
-        self.reg_txt2.pack()
-        self.login_btn = ttk.Button(self.frame2, text="Go to Login", command=self.login)
-        self.login_btn.pack()
+listbox = tk.Listbox(
+    root,
+    listvariable=var,
+    height=6,
+    selectmode=tk.EXTENDED
+)
+
+listbox.pack(expand=True, fill=tk.BOTH)
 
 
-root = Tk()
-app(root)
+def items_selected(event):
+    # get all selected indices
+    selected_indices = listbox.curselection()
+    # get selected items
+    selected_langs = ",".join([listbox.get(i) for i in selected_indices])
+    msg = f'You selected: {selected_langs}'
+    showinfo(title='Information', message=msg)
+
+
+listbox.bind('<<ListboxSelect>>', items_selected)
+
 root.mainloop()
