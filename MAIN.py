@@ -364,10 +364,8 @@ class app:
             if not selected_items:
                 messagebox.showerror("Nincs kijelölve", "Jelölj ki legalább egy sort a törléshez.")
                 return
-
             if not messagebox.askyesno("Megerősítés", "Biztos, hogy törlöd a kijelölt sort/sorokat?"):
                 return
-
             for itemID in sorted(selected_items, reverse=True):
                 index = int(itemID)
                 tree.delete(itemID)
